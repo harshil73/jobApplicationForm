@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editform</title>
+</head>
+<style>
+    #basic-info,
+    #education,
+    #work_expe,
+    #language,
+    #technologies,
+    #reference,
+    #preferances {
+        background-color: rgba(7, 7, 7, 0.582);
+        font-size: 20PX;
+        color: rgb(190, 171, 171);
+    }
+
+    #tr1 {
+        text-align: center;
+    }
+
+    h2 {
+        color: aliceblue;
+    }
+</style>
+
+<body>
+
+    <center>
+        <h2>Job Application Form</h2>
+    </center>
+    <center>
+        <form action="/edit1" method="post">
+            <table border="1px" id="basic-info">
+                <tr>
+                    <th colspan="3">Basic-info</th>
+                </tr>
+                <tr>
+                    <td> First Name <input type="text" id="f_name" name="fname"> <br> <br></td>
+                    <td colspan="2"> Last Name <input type="text" id="lname" name="lname"> <br>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td> designation <input type="text" id="d" name="designation"> <br><br></td>
+                    <td colspan="2"> Address1 <input type="text" name="add1"> <br> <br></td>
+                </tr>
+                <tr>
+                    <td> Email <input type="email" id="email" name="email"> <br> <br></td>
+                    <td colspan="2"> Address2 <input type="text" name="add2"> <br> <br></td>
+                </tr>
+                <tr>
+                    <td> Phone No. <input type="text" name="mno"> <br> <br></td>
+                    <td colspan="2">
+                        Cities <select id="selectcity" name="city"></select><br> <br></td>
+                </tr>
+                <tr>
+                    <td> Gender: male<input type="radio" name="gender" value="male">
+                        female<input type="radio" value="female" name="gender"> <br> <br></td>
+
+                    <td> State <select name="state" onchange="reflactCities(this)">
+                            <%for(i=0;i<g1.length;i++){%>
+                                <option value="<%=g1[i].id%>" name="stname">
+                                    <%=g1[i].state_name%>
+                                </option>
+                                <%}%>
+                        </select>
+                    </td>
+                <tr>
+                    <td> Relationship Status<select name="relationship">
+                            <%for(i=0;i<y.length;i++){%>
+                                <option value="<%=y[i].ovalue%>" name="rs1">
+                                    <%=y[i].ovalue%>
+                                </option>
+                                <%}%>
+
+                        </select> </td>
+                    <td>
+                        Zipcode <input type="text" name="zip" id="zip">
+                    </td>
+                </tr>
+
+                </tr>
+                <tr id="tr1">
+                    <td colspan="2">
+                        date of birth <input type="date" name="dob">
+                    </td>
+                </tr>
+
+            </table>
+            <br>
+
+
+
+
+            <table id="education" border="1px">
+                <tr>
+                    <th>Educational Details</th>
+                </tr>
+                <tr>
+                    <td>
+                        Course
+                        <select name="course">
+                            <%for(i=0;i<f.length;i++){%>
+                                <option name="aa" value="<%=f[i].ovalue%>">
+                                    <%=f[i].ovalue%>
+                                </option>
+                                <%}%>
+                        </select>
+                        passing Year <input type="text" name="passyear">
+                        percentage <input type="text" name="percentage">
+                        University <input type="text" name="university">
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="+" onclick="fun1()">
+            <br>
+
+
+
+            <table border="1px" id="work_expe">
+                <tr>
+                    <th>Work-Experience</th>
+                </tr>
+                <tr>
+                    <td> Company Name <input type="text" name="companyname">
+                        Position <input type="text" name="position">
+                        From <input type="date" name="sdate">
+                        To <input type="date" name="edate"></td>
+                </tr>
+
+            </table>
+            <input type="button" value="+" onclick="fun2()">
+            <br>
+
+
+
+            <table border="1px" id="language">
+                <tr>
+                    <th colspan="2">Language known</th>
+                </tr>
+                <%for(var i=0;i<k.length;i++){%>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="languages" value="<%=k[i].ovalue%>">
+                            <%=k[i].ovalue%>:
+                                Read <input type="checkbox" name="<%=k[i].ovalue%>" value="read">
+                                Write<input type="checkbox" name="<%=k[i].ovalue%>" value="write">
+                                Speak<input type="checkbox" name="<%=k[i].ovalue%>" value="speak">
+                        </td>
+                    </tr>
+                    <%}%>
+            </table>
+            <br>
+
+
+            <table id="technologies" border="1px">
+                <tr>
+                    <th colspan="2">Technologies You know</th>
+                </tr>
+                <%for(var i=0;i<g.length;i++){%>
+                    <tr>
+                        <td>
+                            <input type="checkbox" name="technologies" value="<%=g[i].ovalue%>">
+                            <%=g[i].ovalue%>:
+                                Beginer <input type="radio" name="<%=g[i].ovalue%>" value="beginner">
+                                Mediator<input type="radio" name="<%=g[i].ovalue%>" value="mediator">
+                                Expert<input type="radio" name="<%=g[i].ovalue%>" value="expert">
+                        </td>
+                    </tr>
+                    <%}%>
+
+            </table> <br>
+
+
+
+            <table id="preferances" border="1px">
+                <tr>
+                    <th colspan="2">Preferances</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        Prefered Location <select name="pl">
+                            <option name="pl" value="london">London</option>
+                            <option name="pl" value="california">California</option>
+                            <option name="pl" value="tokiyo">Tokiyo</option>
+                            <option name="pl" value="rome">Rome</option>
+                        </select>
+                    </td>
+                    <td>
+                        Notice Period <input type="text" name="np"> <br>
+                        Expected CTC <input type="text" name="ec"> <br>
+                        Current CTC <input type="text" name="cc">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Department : <select name="dpt">
+
+                            <%for(i=0;i<z.length;i++){%>
+                                <option value="<%=z[i].ovalue%>">
+                                    <%=z[i].ovalue%>
+                                </option>
+                                <%}%>
+                        </select>
+                    </td>
+                </tr>
+            </table> <br>
+
+
+
+            <table id="reference" border="1px">
+                <tr>
+                    <th>References</th>
+                </tr>
+                <tr>
+                    <td>Name <input type="text" name="rname1">
+                        Contact No <input type="text" name="cno1">
+                        Relation <input type="text" name="rl1"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+
+            </table>
+        </form>
+
+        <br>
+
+        <br>
+    </center>
+</body>
+
+
+<script>
+    function fun1() {
+        var row1 = document.createElement('tr')
+        // var tab = document.getElementById('education')
+        // var x = tab.insertRow();
+        row1.innerHTML = `
+        <td>  Course
+                    <select name="course">
+                        <%for(i=0;i<f.length;i++){%>
+                            <option value="<%=f[i].ovalue%>">
+                                <%=f[i].ovalue%>
+                            </option>
+                            <%}%>
+                    </select>
+                    passing Year <input type="text" name="passyear">
+                    percentage <input type="text" name="percentage">
+                    University <input type="text" name="university">
+                </td>
+                <input type="button" value="-" onclick="fun3()">`
+        var table = document.getElementById('education')
+        table.appendChild(row1)
+    }
+
+
+
+    function fun2() {
+        var row1 = document.createElement('tr')
+        row1.innerHTML = ` <td> Company Name <input type="text" name="companyname">
+                     Position <input type="text" name="position">
+                    From <input type="date" name="sdate">
+                     To <input type="date" name="edate"></td>
+                     <input type="button" value="-" onclick="fun4()">`
+
+        var table = document.getElementById('work_expe')
+        table.appendChild(row1)
+    }
+
+    function fun3() {
+        var table = document.getElementById('education');
+        table.removeChild(table.lastElementChild)
+    }
+
+    function fun4() {
+        var table = document.getElementById('work_expe');
+        table.removeChild(table.lastElementChild)
+    }
+
+    async function reflactCities(id) {
+        console.log(id);
+        console.log(id.value);
+        const city_name = await fetch(`http://localhost:5547/cities?id=${id.value}`)
+        // Handle success
+        const data = await city_name.json();
+        // console.log(data)
+        var selectcity = document.getElementById('selectcity');
+        selectcity.innerHTML = "";
+        for (let i = 0; i < data.length; i++) {
+            const option = new Option(data[i].city_names, data[i].city_names);
+            selectcity.add(option);
+        }
+    }
+</script>
+
+</html>

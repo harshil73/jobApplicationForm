@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>editform</title>
+</head>
+<style>
+    #basic-info,
+    #education,
+    #work_expe,
+    #language,
+    #technologies,
+    #reference,
+    #preferances {
+        background-color: rgba(7, 7, 7, 0.582);
+        font-size: 20PX;
+        color: rgb(190, 171, 171);
+    }
+
+    #tr1 {
+        text-align: center;
+    }
+
+    h2 {
+        color: aliceblue;
+    }
+</style>
+
+<body>
+    <center>
+        <h2>Job Application Form</h2>
+    </center>
+    <center>
+        <form action="/shawedit1" method="post">
+            <table border="1px" id="basic-info">
+                <input type="hidden" name="id" value="<%=bid%>">
+                <tr>
+                    <td> First Name <input type="text" name="f_name" value="<%=data[0].f_name%>"> <br> <br></td>
+                    <td colspan="2"> Last Name <input type="text" name="l_name" value="<%=data[0].l_name%>"> <br>
+                        <br>
+                    </td>
+                </tr>
+                <tr>
+                    <td> designation <input type="text" id="d" name="designation" value="<%=data[0].designation%>">
+                        <br><br>
+                    </td>
+                    <td colspan="2"> Address1 <input type="text" name="add1" value="<%=data[0].add1%>"> <br> <br></td>
+                </tr>
+                <tr>
+                    <td> Email <input type="email" id="email" name="email" value="<%=data[0].email%>"> <br> <br></td>
+                    <td colspan="2"> Address2 <input type="text" name="add2" value="<%=data[0].add2%>"> <br> <br></td>
+                </tr>
+                <tr>
+                    <td> Phone No. <input type="text" name="mno" value="<%=data[0].mobileno%>"> <br> <br></td>
+                    <td colspan="2">
+                        Cities <select id="selectcity" name="city">
+                            <%for(i=0;i<c1.length;i++){%>
+                                <%if(data[0].city==c1[i].city_names){%>
+                                    <option value="<%=c1[i].city_names%>" selected>
+                                        <%=c1[i].city_names%>
+                                    </option>
+                                    <%}else{%>
+                                        <option value="<%=c1[i].city_names%>">
+                                            <%=c1[i].city_names%>
+                                        </option>
+                                        <%}%>
+                                            <%}%>
+
+                        </select><br> <br></td>
+                </tr>
+                <tr>
+                    <td>
+                        Gender: male<input type="radio" name="gender" value="male" <%=(data[0].gender=="male" )
+                            ? "checked" : "" %>>
+                        female<input type="radio" value="female" name="gender" <%=(data[0].gender=="female" )
+                            ? "checked" : "" %>>
+                        <br> <br>
+                    </td>
+
+                    <td> State <select name="state">
+
+                            <%for(i=0;i<s1.length;i++){%>
+                                <% if(data[0].state==s1[i].state_name){%>
+                                    <option value="<%s1[i].state_name%>" selected onchange="reflactCities(this)">
+                                        <%=s1[i].state_name%>
+                                    </option>
+                                    <% }else{%>
+                                        <option value="<%=s1[i].state_name%>" onchange="reflactCities(this)">
+                                            <%=s1[i].state_name%>
+                                        </option>
+                                        <%}%>
+                                            <%}%>
+                        </select>
+                    </td>
+                <tr>
+                    <td> Relationship Status<select name="relationship">
+                            <%for(i=0;i<r1.length;i++){%>
+                                <%if(data[0].relationship_status==r1[i].ovalue){%>
+                                    <option value="<%=r1[i].ovalue%>" selected>
+                                        <%=r1[i].ovalue%>
+                                    </option>
+                                    <%}else{%>
+                                        <option value="<%=r1[i].ovalue%>">
+                                            <%=r1[i].ovalue%>
+                                        </option>
+                                        <%}%>
+                                            <%}%>
+                        </select> </td>
+                    <td>
+                        Zipcode <input type="text" name="zip" id="zip" value="<%=data[0].zipcode%>">
+                    </td>
+                </tr>
+
+                </tr>
+                <tr id="tr1">
+                    <td colspan="2">
+                        date of birth <input type="date" name="dob" value="<%=data[0].dob%>">
+                    </td>
+                </tr>
+
+            </table>
+            <br>
+
+
+
+            <table id="education" border="1px">
+                <tr>
+                    <th>Educational Details</th>
+                </tr>
+                <tr>
+                    <td>
+
+                        <%for(a=0;a<r3.length;a++){%>
+                            Course
+                            <select name="course">
+                                <%for(i=0;i<r2.length;i++){%>
+                                    <%if(r3[a].course_name==r2[i].ovalue){%>
+                                        <option value="<%= r2[i].ovalue%>" selected>
+                                            <%=r2[i].ovalue%>
+                                        </option>
+                                        <%}else{%>
+                                            <option value="<%=r2[i].ovalue%>">
+                                                <%=r2[i].ovalue%>
+                                            </option>
+                                            <%}%>
+                                                <%}%>
+
+                            </select>
+                            passing Year <input type="text" name="passyear" value="<%=r3[a].passingyear%>">
+                            percentage <input type="text" name="percentage" value="<%=r3[a].percentage%>">
+                            University <input type="text" name="university" value="<%=r3[a].university%>">
+                            <br>
+                            <%}%>
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="+" onclick="fun1()">
+
+            <br>
+
+
+            <table border="1px" id="work_expe">
+                <tr>
+                    <th>Work-Experience</th>
+                </tr>
+                <tr>
+                    <td>
+                        <%for(w=0;w<r4.length;w++){%>
+                            Company Name <input type="text" name="companyname" value="<%=r4[w].company_name%>">
+                            Position <input type="text" name="position" value="<%=r4[w].position%>">
+                            From <input type="date" name="sdate" value="<%=r4[w].joining_date%>">
+                            To <input type="date" name="edate" value="<%=r4[w].leaving_date%>"> <br>
+                            <%}%>
+                    </td>
+                </tr>
+            </table>
+            <input type="button" value="+" onclick="fun2()">
+
+            <br>
+
+
+
+            <table border="1px" id="language">
+                <tr>
+                    <th colspan="2">Language known</th>
+                </tr>
+                <%for(var i=0;i<r5.length;i++){%>
+                    <%var flag=0%>
+                        <%for(j=0;j<r6.length;j++){%>
+                            <tr>
+                                <td>
+                                    <%if(r5[i].ovalue==r6[j].language_name){%>
+                                        <%flag=1%>
+                                            <input type="checkbox" name="languages" value="<%=r5[i].ovalue%>" checked>
+                                            <%=r5[i].ovalue%>:
+
+
+                                                Read <input type="checkbox" name="<%=r5[i].ovalue%>" value="read"
+                                                    <%=(r6[j].lang_action.includes("read") ? "checked" : "" )%> >
+
+
+                                                Write<input type="checkbox" name="<%=r5[i].ovalue%>" value="write"
+                                                    <%=(r6[j].lang_action.includes("write") ? "checked" : "" )%> >
+
+                                                <%console.log(r5[i].ovalue)%>
+                                                    Speak<input type="checkbox" name="<%=r5[i].ovalue%>" value="speak"
+                                                        <%=(r6[j].lang_action.includes("speak") ? "checked" : "" )%>>
+                                                    <%}%>
+
+                                                        <%}%>
+                                                            <%if(flag==0){%>
+                                                                <input type="checkbox" name="languages"
+                                                                    value="<%=r5[i].ovalue%>">
+                                                                <%=r5[i].ovalue%>:
+                                                                    Read <input type="checkbox" value="read"
+                                                                        name="<%=r5[i].ovalue%>">
+                                                                    Write<input type="checkbox" value="write"
+                                                                        name="<%=r5[i].ovalue%>">
+                                                                    Speak<input type="checkbox" value="speak"
+                                                                        name="<%=r5[i].ovalue%>">
+                                </td>
+                                <%}%>
+                                    <%}%>
+                            </tr>
+            </table>
+            <br>
+
+
+            <table id="technologies" border="1px">
+                <tr>
+                    <th colspan="2">Technologies You know</th>
+                </tr>
+                <%for(var i=0;i<r7.length;i++){%>
+                    <%var flag=0%>
+                        <%for(var j=0;j<r8.length;j++){%>
+                            <tr>
+                                <td>
+                                    <%if(r7[i].ovalue==r8[j].language_names){%>
+                                        <%flag=1%>
+                                            <input type="checkbox" name="technologies" value="<%=r7[i].ovalue%>"
+                                                checked>
+                                            <%=r7[i].ovalue%>:
+
+                                                Beginer <input type="radio" name="<%=r7[i].ovalue%>" value="beginner"
+                                                    <%=(r8[j].level=="beginner" )? "checked" : "" %>>
+                                                Mediator<input type="radio" name="<%=r7[i].ovalue%>" value="mediator"
+                                                    <%=(r8[j].level=="mediator" )? "checked" : "" %>>
+                                                Expert<input type="radio" name="<%=r7[i].ovalue%>" value="expert"
+                                                    <%=(r8[j].level=="expert" )? "checked" : "" %>>
+                                                <%}%>
+                                                    <%}%>
+
+                                                        <%if(flag==0){%>
+                                                            <input type="checkbox" name="technologies"
+                                                                value="<%=r7[i].ovalue%>">
+                                                            <%=r7[i].ovalue%>:
+                                                                Beginer <input type="radio" name="<%=r7[i].ovalue%>"
+                                                                    value="beginner">
+                                                                Mediator<input type="radio" name="<%=r7[i].ovalue%>"
+                                                                    value="mediator">
+                                                                Expert<input type="radio" name="<%=r7[i].ovalue%>"
+                                                                    value="expert">
+                                </td>
+                                <%}%>
+                                    <%}%>
+                            </tr>
+
+
+
+
+            </table> <br>
+
+            <table id="preferances" border="1px">
+                <tr>
+                    <th colspan="2">Preferances</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">
+                        Prefered Location <select name="pl">
+                            <option name="pl" value="london" <%=(r9[0].pref_loc=="london" ) ? "selected" : "" %> >London
+                            </option>
+                            <option name="pl" value="california" <%=(r9[0].pref_loc=="california" ) ? "selected" : "" %>
+                                >California</option>
+                            <option name="pl" value="tokiyo" <%=(r9[0].pref_loc=="tokiyo" ) ? "selected" : "" %>>Tokiyo
+                            </option>
+                            <option name="pl" value="rome" <%=(r9[0].pref_loc=="rome" ) ? "selected" : "" %>>Rome
+                            </option>
+
+                        </select>
+                    </td>
+                    <td>
+                        Notice Period <input type="text" name="np" value="<%=r9[0].notice_period%>"> <br>
+                        Expected CTC <input type="text" name="ec" value="<%=r9[0].exp_ctc%>"> <br>
+                        Current CTC <input type="text" name="cc" value="<%=r9[0].curr_ctc%>">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Department : <select name="dpt">
+                            <%for(i=0;i<r10.length;i++){%>
+                                <%if(r10[i].ovalue==r9[0].dept){%>
+                                    <option value="<%=r10[i].ovalue%>" selected>
+                                        <%=r10[i].ovalue%>
+                                    </option>
+                                    <%}%>
+                                        <%if(r10[i].ovalue!=r9[0].dept){%>
+                                            <option value="<%=r10[i].ovalue%>">
+                                                <%=r10[i].ovalue%>
+                                            </option>
+                                            <%}%>
+                                                <%}%>
+                        </select>
+                    </td>
+                </tr>
+            </table> <br>
+
+
+
+
+
+            <table id="reference" border="1px">
+                <tr>
+                    <th>References</th>
+                </tr>
+                <tr>
+                    <td>Name <input type="text" name="rname1" value="<%=r11[0].rl_name%>">
+                        Contact No <input type="text" name="cno1" value="<%=r11[0].rl_contact%>">
+                        Relation <input type="text" name="rl1" value="<%=r11[0].rl_relation%>"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" value="submit"></td>
+                </tr>
+        </form>
+        </table>
+
+
+        <br>
+
+        <br>
+    </center>
+</body>
+
+
+<script>
+    function fun1() {
+        var row1 = document.createElement('tr');
+        row1.innerHTML = `
+        <td>  Course
+            <select name="course">
+                                <%for(i=0;i<r2.length;i++){%>
+                                <option name="aa" value="<%=r2[i].ovalue%>">
+                                    <%=r2[i].ovalue%>
+                                </option>
+                         <%}%>
+                            </select>
+                    passing Year <input type="text" name="passyear">
+                    percentage <input type="text" name="percentage">
+                    University <input type="text" name="university">
+                </td>
+                <input type="button" value="-" onclick="fun3()">`
+        var table = document.getElementById('education')
+        table.appendChild(row1)
+    }
+
+
+
+    function fun2() {
+        var row1 = document.createElement('tr')
+        row1.innerHTML = ` <td> Company Name <input type="text" name="companyname">
+                     Position <input type="text" name="position">
+                    From <input type="date" name="sdate">
+                     To <input type="date" name="edate"></td>
+                     <input type="button" value="-" onclick="fun4()">`
+
+        var table = document.getElementById('work_expe')
+        table.appendChild(row1)
+    }
+    function fun3() {
+        var table = document.getElementById('education');
+        table.removeChild(table.lastElementChild)
+    }
+
+    function fun4() {
+        var table = document.getElementById('work_expe');
+        table.removeChild(table.lastElementChild)
+    }
+
+    async function reflactCities(id) {
+        console.log(id);
+        console.log(id.value);
+        const city_name = await fetch(`http://localhost:5547/cities?id=${id.value}`)
+        // Handle success
+        const data = await city_name.json();
+        var selectcity = document.getElementById('selectcity');
+        selectcity.innerHTML = "";
+        for (let i = 0; i < data.length; i++) {
+            const option = new Option(data[i].city_names, data[i].city_names);
+            selectcity.add(option);
+        }
+    }
+</script>
+
+</html>

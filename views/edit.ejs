@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>search</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+</style>
+
+<body>
+    <center>
+        <h2>Edit File</h2>
+        <!-- <h1>Enter Your Name</h1>
+        <form action="/" method="GET">
+            <input type="text" name="lname">
+        </form> -->
+        <br>
+        <table id="table" border="1" style=" color: rgb(7, 7, 7); background-color:rgba(50, 137, 187, 0.822);">
+            <tr style="width: 60px; height: 60px; color:rgba(0, 196, 170, 0.712); background-color: black;">
+                
+                <th>Delete Multiple</th>
+                <th>ID</th>
+                <th>First Name <br>!</th>
+                <th>Last Name <br>&</th>
+                <th>Email <br>#</th>
+                <th>Add 1<br>$</th>
+                <th>Add 2 <br>%</th>
+                <th>designation <br>^</th>
+                <th>zipcode <br>(</th>
+                <th>mobileno <br>-</th>
+                <th>City <br>)</th>
+                <th>State <br>_</th>
+                <th>Created_date <br>*</th>
+                <th>Edit Data</th>
+                <th>delete single </th>
+            </tr>
+
+            <% for(i=0;i<data.length;i++){%>
+                <tr id="<%=data[i].id%>">
+                    <td>
+                        <input type="checkbox"  name="check" id="<%=data[i].id%>" value="<%=data[i].id%>">
+                    </td>
+                    <td>
+                        <%= data[i].id %>
+                    </td>
+                    <td>
+                        <%= data[i].f_name %>
+                    </td>
+                    <td>
+                        <%= data[i].l_name %>
+                    </td>
+                    <td>
+                        <%= data[i].email %>
+                    </td>
+                    <td>
+                        <%= data[i].add1 %>
+                    </td>
+                    <td>
+                        <%= data[i].add2 %>
+                    </td>
+                    <td>
+                        <%= data[i].designation %>
+                    </td>
+                    <td>
+                        <%= data[i].zipcode %>
+                    </td>
+                    <td> 
+                         <%= data[i].mobileno %>
+                    </td>
+                    <td>
+                        <%= data[i].city %>
+                    </td>
+                    <td>
+                        <%= data[i].state%>
+                    </td>
+                    <td>
+                        <%= data[i].created_date %>
+                    </td>
+                    <td>
+                        <a id="<%=data[i].id%>" href="/shaweditdata1?id=<%=data[i].id%>">Edit</a>
+                    </td>
+                   
+                    <td>
+                        <span id="<%=data[i].id%>" onclick="delete_row(this)">Delete</span>
+                    </td>
+                </tr>
+                <%}%>
+        </table> <br>
+    <br>
+    <% var a=count_record/5%>
+    <% for(i=1;i<10;i++){%>
+        <span onclick="getdata('/pagination?id=<%=i%>&ajax=true')" id="<%=i%>"><%=i%></span>
+        <%}%> <br> <br>
+        <span onclick="del_mul()">Delete Selected</span>
+</body>
+</center>
+
+</html>
+
+<script>
+    function delete_row(x) {
+        var did = x.id;
+        // console.log(did)
+        fetch('/remove?id=' + did + '').then((response) => {}).then((resdata) => {
+            var html = '';
+            var s = confirm('are u sure u want to delete this row?')
+            if (s == 1) {
+                document.getElementById(did).style.display = 'none';
+            }
+        }
+        )}
+
+
+       async function del_mul(){
+            let selected = []
+            let allselected = document.getElementsByName('check');
+            console.log(allselected)
+            for(i=0;i<allselected.length;i++){
+                if(allselected[i].checked==true){
+                    selected.push(allselected[i].value);
+                }
+            }
+
+            console.log(selected)
+            if(confirm('do u want to delete all this rows?')){
+                for(i=0;i<selected.length;i++){
+                    document.getElementById(selected[i]).style.display='none';
+                }  
+                const ans = await fetch('/multidelete?id='+selected+'');
+            }
+        }
+
+        function getdata(x){
+            console.log(x);
+              fetch(x).then((response)=>{
+                return response.json();
+              }).then((data)=>{
+                 console.log(data)
+            
+                 var str = ""
+                 str = `<tr style="width: 60px; height: 60px; color:rgba(0, 196, 170, 0.712); background-color: black;">
+                
+                <th>Delete Multiple</th>
+                <th>ID</th>
+                <th>First Name <br>!</th>
+                <th>Last Name <br>&</th>
+                <th>Email <br>#</th>
+                <th>Add 1<br>$</th>
+                <th>Add 2 <br>%</th>
+                <th>designation <br>^</th>
+                <th>zipcode <br>(</th>
+                <th>mobileno <br>-</th>
+                <th>City <br>)</th>
+                <th>State <br>_</th>
+                <th>Created_date <br>*</th>
+                <th>Edit Data</th>
+                <th>delete single </th>
+            </tr>`  
+
+         for(let i=0;i<data.length;i++){
+              str+=` <tr id="${data[i].id}">
+                    <td>
+                        <input type="checkbox"  name="check"  id="${data[i].id}"  value="${data[i].id}">
+                    </td>
+                    <td>
+                        ${data[i].id} 
+                    </td>
+                    <td>
+                         ${data[i].f_name} 
+                    </td>
+                    <td>
+                         ${data[i].l_name} 
+                    </td>
+                    <td>
+                         ${data[i].email }
+                    </td>
+                    <td>
+                        ${data[i].add1}
+                   </td>
+                    <td>
+                         ${data[i].add2 }
+                  </td>
+                    <td>
+                         ${data[i].designation} 
+                    </td>
+                    <td>
+                         ${data[i].zipcode}
+                    </td>
+                    <td>
+                         ${data[i].mobileno }
+                    </td>
+                    <td>
+                       ${data[i].city }
+                    </td>
+                    <td>
+                       ${data[i].state }
+                    </td>
+                    <td>
+                         ${data[i].created_date} 
+                    </td>
+                    <td>
+                        <a id="${data[i].id}" href="/shaweditdata1?id='${data[i].id}'">Edit</a>
+                    </td>
+                    <td>
+                        <span id="${data[i].id}" onclick="delete_row(this)">Delete</span>
+                    </td>
+                </tr>`
+               
+              }
+              var tab = document.getElementById('table');
+                tab.innerHTML=str;
+            })
+        }
+
+        function edit(x){
+            var id = x.id;
+            console.log(id);
+            // fetch('/shaweditdata')
+            fetch(`/shaweditdata?id= ${id}` ).then((response) => {response.json()}).then((resdata) => {
+                console.log(resdata);
+            })
+        }
+    
+</script>
